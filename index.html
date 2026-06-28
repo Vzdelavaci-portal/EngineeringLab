@@ -1,406 +1,62 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Engineering Lab – Interactive Engineering Simulations</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<title>Engineering Lab</title>
 
-    body {
-      margin: 0;
-      font-family: system-ui, Arial, sans-serif;
-      color: #f5f7fb;
-      background:
-        radial-gradient(circle at top left, rgba(32, 214, 255, 0.18), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(167, 139, 250, 0.15), transparent 35%),
-        linear-gradient(135deg, #050b14, #0c1422 55%, #070b12);
-      min-height: 100vh;
-    }
+<link rel="stylesheet" href="style.css">
 
-    .page {
-      width: min(1200px, 94%);
-      margin: 0 auto;
-      padding: 32px 0 50px;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 70px;
-    }
-
-    .logo {
-      font-weight: 900;
-      color: #20d6ff;
-      letter-spacing: 0.5px;
-      font-size: 1.2rem;
-    }
-
-    .lang {
-      display: flex;
-      gap: 8px;
-    }
-
-    .lang button {
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.08);
-      color: white;
-      padding: 8px 14px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    .lang button.active {
-      background: #0ea5ff;
-      border-color: #36d7ff;
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 8px 16px;
-      border-radius: 999px;
-      background: rgba(32, 214, 255, 0.1);
-      border: 1px solid rgba(32, 214, 255, 0.5);
-      color: #20d6ff;
-      font-weight: 900;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      font-size: clamp(2.8rem, 8vw, 6rem);
-      margin: 0;
-      line-height: 1;
-    }
-
-    .hero p {
-      max-width: 760px;
-      margin: 24px auto 0;
-      color: #c8d6e8;
-      font-size: 1.2rem;
-      line-height: 1.7;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 32px;
-    }
-
-    .stat {
-      padding: 20px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      text-align: center;
-    }
-
-    .stat strong {
-      display: block;
-      color: #20d6ff;
-      font-size: 2rem;
-    }
-
-    .stat span {
-      color: #b8c8dc;
-    }
-
-    .section-title {
-      font-size: 2rem;
-      margin: 40px 0 20px;
-      color: #ffffff;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      position: relative;
-      min-height: 230px;
-      padding: 24px;
-      border-radius: 24px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04));
-      border: 1px solid rgba(255,255,255,0.14);
-      text-decoration: none;
-      color: white;
-      overflow: hidden;
-      transition: 0.25s;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(32, 214, 255, 0.7);
-      box-shadow: 0 20px 70px rgba(0,0,0,0.35);
-    }
-
-    .card.active::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(32, 214, 255, 0.24), transparent 40%);
-      pointer-events: none;
-    }
-
-    .icon {
-      font-size: 3rem;
-      margin-bottom: 18px;
-    }
-
-    .card h2 {
-      margin: 0 0 12px;
-      font-size: 1.45rem;
-    }
-
-    .card p {
-      color: #c7d4e8;
-      line-height: 1.6;
-      margin-bottom: 24px;
-    }
-
-    .status {
-      display: inline-block;
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 900;
-    }
-
-    .done {
-      background: rgba(34, 197, 94, 0.15);
-      color: #4ade80;
-      border: 1px solid rgba(74, 222, 128, 0.5);
-    }
-
-    .planned {
-      background: rgba(255, 255, 255, 0.08);
-      color: #b8c8dc;
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-
-    .open {
-      display: block;
-      margin-top: 18px;
-      color: #20d6ff;
-      font-weight: 900;
-    }
-
-    footer {
-      margin-top: 60px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.12);
-      color: #9fb1c8;
-      text-align: center;
-    }
-
-    @media (max-width: 700px) {
-      header {
-        margin-bottom: 40px;
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        text-align: left;
-      }
-    }
-  </style>
 </head>
 <body>
 
-  <main class="page">
-    <header>
-      <div class="logo">⚙️ Engineering Lab</div>
+<header>
 
-      <div class="lang">
-        <button id="czBtn" class="active">CZ</button>
-        <button id="enBtn">EN</button>
-      </div>
-    </header>
+    <h1>⚙️ Engineering Lab</h1>
 
-    <section class="hero">
-      <div class="badge" data-i18n="badge">Interaktivní technické simulace</div>
+    <p>
+        Interactive engineering and industrial simulations built with HTML, CSS and JavaScript.
+    </p>
 
-      <h1>Engineering Lab</h1>
+</header>
 
-      <p data-i18n="subtitle">
-        Kolekce interaktivních simulací, které vysvětlují strojírenství,
-        mechaniku a průmyslovou automatizaci přímo v prohlížeči.
-      </p>
-    </section>
+<main class="grid">
 
-    <section class="stats">
-      <div class="stat">
-        <strong>01</strong>
-        <span data-i18n="done">hotová simulace</span>
-      </div>
+    <a href="01-GearSimulation/index.html" class="card active">
 
-      <div class="stat">
-        <strong>10+</strong>
-        <span data-i18n="planned">plánovaných témat</span>
-      </div>
-
-      <div class="stat">
-        <strong>HTML</strong>
-        <span data-i18n="tech">CSS + JavaScript</span>
-      </div>
-    </section>
-
-    <h2 class="section-title" data-i18n="simulations">Simulace</h2>
-
-    <section class="grid">
-
-      <a href="01-GearSimulation/index.html" class="card active">
         <div class="icon">⚙️</div>
-        <h2 data-i18n="gearTitle">Ozubená kola</h2>
-        <p data-i18n="gearDesc">
-          Interaktivní simulace převodového poměru, otáček a směru rotace mezi ozubenými koly.
+
+        <h2>Gear Simulation</h2>
+
+        <p>
+            Learn how rotational motion is transferred through meshing gears.
+            Experiment with gear ratios, rotation speed, direction and multiple gear trains.
         </p>
-        <span class="status done" data-i18n="doneStatus">Hotovo</span>
-        <span class="open" data-i18n="open">Otevřít simulaci →</span>
-      </a>
 
-      <article class="card">
-        <div class="icon">🪐</div>
-        <h2 data-i18n="planetaryTitle">Planetová převodovka</h2>
-        <p data-i18n="planetaryDesc">
-          Ukázka slunečního kola, satelitů a korunového kola v jednom mechanismu.
-        </p>
-        <span class="status planned" data-i18n="plannedStatus">Plánováno</span>
-      </article>
+        <div class="tags">
+            <span class="tag">Mechanics</span>
+            <span class="tag">Engineering</span>
+            <span class="tag">Simulation</span>
+            <span class="tag">Canvas</span>
+        </div>
 
-      <article class="card">
-        <div class="icon">🌀</div>
-        <h2 data-i18n="wormTitle">Šneková převodovka</h2>
-        <p data-i18n="wormDesc">
-          Simulace převodu mezi šnekem a ozubeným kolem s velkým převodovým poměrem.
-        </p>
-        <span class="status planned" data-i18n="plannedStatus">Plánováno</span>
-      </article>
+        <span class="open">
+            Open Simulation →
+        </span>
 
-      <article class="card">
-        <div class="icon">🔁</div>
-        <h2 data-i18n="camTitle">Vačkový mechanismus</h2>
-        <p data-i18n="camDesc">
-          Převod rotačního pohybu na přímočarý pohyb pomocí vačky a táhla.
-        </p>
-        <span class="status planned" data-i18n="plannedStatus">Plánováno</span>
-      </article>
+    </a>
 
-      <article class="card">
-        <div class="icon">🚚</div>
-        <h2 data-i18n="conveyorTitle">Dopravníkový pás</h2>
-        <p data-i18n="conveyorDesc">
-          Mini výrobní linka se senzory, pohonem a tříděním výrobků.
-        </p>
-        <span class="status planned" data-i18n="plannedStatus">Plánováno</span>
-      </article>
+</main>
 
-      <article class="card">
-        <div class="icon">🤖</div>
-        <h2 data-i18n="robotTitle">Robotická ruka</h2>
-        <p data-i18n="robotDesc">
-          Interaktivní ukázka kloubů, dosahu a pohybu jednoduchého průmyslového robota.
-        </p>
-        <span class="status planned" data-i18n="plannedStatus">Plánováno</span>
-      </article>
+<footer>
 
-    </section>
+    Engineering Lab • Interactive Engineering Simulations
 
-    <footer>
-      <p data-i18n="footer">
-        Vytvořeno pro vzdělávací účely jako součást série Engineering Lab.
-      </p>
-    </footer>
-  </main>
+</footer>
 
-  <script>
-    const translations = {
-      cz: {
-        badge: "Interaktivní technické simulace",
-        subtitle: "Kolekce interaktivních simulací, které vysvětlují strojírenství, mechaniku a průmyslovou automatizaci přímo v prohlížeči.",
-        done: "hotová simulace",
-        planned: "plánovaných témat",
-        tech: "CSS + JavaScript",
-        simulations: "Simulace",
-        gearTitle: "Ozubená kola",
-        gearDesc: "Interaktivní simulace převodového poměru, otáček a směru rotace mezi ozubenými koly.",
-        planetaryTitle: "Planetová převodovka",
-        planetaryDesc: "Ukázka slunečního kola, satelitů a korunového kola v jednom mechanismu.",
-        wormTitle: "Šneková převodovka",
-        wormDesc: "Simulace převodu mezi šnekem a ozubeným kolem s velkým převodovým poměrem.",
-        camTitle: "Vačkový mechanismus",
-        camDesc: "Převod rotačního pohybu na přímočarý pohyb pomocí vačky a táhla.",
-        conveyorTitle: "Dopravníkový pás",
-        conveyorDesc: "Mini výrobní linka se senzory, pohonem a tříděním výrobků.",
-        robotTitle: "Robotická ruka",
-        robotDesc: "Interaktivní ukázka kloubů, dosahu a pohybu jednoduchého průmyslového robota.",
-        doneStatus: "Hotovo",
-        plannedStatus: "Plánováno",
-        open: "Otevřít simulaci →",
-        footer: "Vytvořeno pro vzdělávací účely jako součást série Engineering Lab."
-      },
-      en: {
-        badge: "Interactive engineering simulations",
-        subtitle: "A collection of interactive simulations explaining engineering, mechanics and industrial automation directly in the browser.",
-        done: "completed simulation",
-        planned: "planned topics",
-        tech: "CSS + JavaScript",
-        simulations: "Simulations",
-        gearTitle: "Gear Simulation",
-        gearDesc: "Interactive simulation of gear ratio, rotation speed and direction between gears.",
-        planetaryTitle: "Planetary Gearbox",
-        planetaryDesc: "A visual explanation of sun gear, planet gears and ring gear in one mechanism.",
-        wormTitle: "Worm Gear",
-        wormDesc: "Simulation of a worm and gear transmission with a high gear ratio.",
-        camTitle: "Cam Mechanism",
-        camDesc: "Conversion of rotary motion into linear motion using a cam and follower.",
-        conveyorTitle: "Conveyor Belt",
-        conveyorDesc: "A mini production line with sensors, drive system and product sorting.",
-        robotTitle: "Robot Arm",
-        robotDesc: "Interactive view of joints, reach and movement of a simple industrial robot.",
-        doneStatus: "Done",
-        plannedStatus: "Planned",
-        open: "Open simulation →",
-        footer: "Created for educational purposes as part of the Engineering Lab series."
-      }
-    };
-
-    const czBtn = document.getElementById("czBtn");
-    const enBtn = document.getElementById("enBtn");
-
-    function setLanguage(lang) {
-      document.documentElement.lang = lang === "cz" ? "cs" : "en";
-
-      document.querySelectorAll("[data-i18n]").forEach(element => {
-        const key = element.dataset.i18n;
-        element.textContent = translations[lang][key];
-      });
-
-      czBtn.classList.toggle("active", lang === "cz");
-      enBtn.classList.toggle("active", lang === "en");
-    }
-
-    czBtn.addEventListener("click", () => setLanguage("cz"));
-    enBtn.addEventListener("click", () => setLanguage("en"));
-  </script>
+<script src="script.js"></script>
 
 </body>
 </html>
