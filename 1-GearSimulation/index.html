@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Engineering Lab – Ozubená kola</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<main class="app">
+  <header class="topbar">
+    <div class="brand">⚙️ Engineering Lab</div>
+
+    <div class="lang">
+      <button id="czBtn" class="active">CZ</button>
+      <button id="enBtn">EN</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1 data-i18n="title">Ozubená kola</h1>
+    <p data-i18n="subtitle">
+      Interaktivní simulace převodu otáček mezi ozubenými koly.
+    </p>
+  </section>
+
+  <section class="layout">
+    <aside class="panel">
+      <h2 data-i18n="settings">Nastavení</h2>
+
+      <div id="gearControls"></div>
+
+      <label>
+        <span data-i18n="speed">Rychlost simulace</span>
+        <input type="range" id="speedInput" min="0.1" max="5" step="0.1" value="2">
+        <strong id="speedValue">2.0×</strong>
+      </label>
+
+      <button id="pauseBtn">⏸ Pauza</button>
+      <button id="reverseBtn" data-i18n="reverse">↔ Změnit směr vstupu</button>
+      <button id="addGearBtn" data-i18n="addGear">＋ Přidat kolo</button>
+      <button id="removeGearBtn" class="danger" data-i18n="removeGear">🗑 Odebrat poslední kolo</button>
+    </aside>
+
+    <section class="main">
+      <div class="simulation-card">
+        <div class="card-header">
+          <h2 data-i18n="simulation">Simulace převodu</h2>
+
+          <label class="checkbox">
+            <input type="checkbox" id="axisToggle" checked>
+            <span data-i18n="showAxis">Zobrazit osy</span>
+          </label>
+        </div>
+
+        <canvas id="scene" width="1100" height="520"></canvas>
+      </div>
+
+      <div class="results">
+        <h2 data-i18n="results">Výsledky</h2>
+
+        <div class="result-grid">
+          <div class="result-box">
+            <span data-i18n="ratio">Převodový poměr</span>
+            <strong id="ratioValue">1 : 1</strong>
+          </div>
+
+          <div class="result-box">
+            <span data-i18n="outputSpeed">Výstupní rychlost</span>
+            <strong id="outputSpeedValue">1×</strong>
+          </div>
+
+          <div class="result-box">
+            <span data-i18n="outputDirection">Směr výstupu</span>
+            <strong id="directionValue">opačný</strong>
+          </div>
+
+          <div class="result-box">
+            <span data-i18n="inputTurns">Otočení vstupu</span>
+            <strong id="inputTurnsValue">0.00 ot.</strong>
+          </div>
+
+          <div class="result-box">
+            <span data-i18n="outputTurns">Otočení výstupu</span>
+            <strong id="outputTurnsValue">0.00 ot.</strong>
+          </div>
+        </div>
+
+        <h3 data-i18n="gearTurns">Otočení jednotlivých kol</h3>
+        <div id="turnList" class="turn-list"></div>
+      </div>
+    </section>
+  </section>
+
+  <section class="explanation">
+    <div>
+      <h2 data-i18n="howTitle">Jak to funguje?</h2>
+      <p data-i18n="howText">
+        Když se dvě ozubená kola dotýkají, jejich zuby do sebe zapadají.
+        Menší kolo se při stejném kontaktu otočí rychleji než větší kolo.
+        Každé další kolo v soustavě mění směr otáčení.
+      </p>
+    </div>
+
+    <div class="formula">
+      <h2 data-i18n="formula">Vzorec</h2>
+      <p>n<sub>out</sub> = n<sub>in</sub> × Z<sub>in</sub> / Z<sub>out</sub></p>
+    </div>
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
