@@ -30,6 +30,7 @@ No external libraries are required unless stated otherwise.
 | # | Simulation | Status |
 |---|------------|--------|
 | 01 | Gear Simulation | ✅ Done |
+| 02 | Inductive Semsor | ✅ Done |
 
 
 ---
@@ -88,6 +89,7 @@ Bez externích knihoven, pokud není uvedeno jinak.
 | # | Simulace | Stav |
 |---|----------|------|
 | 01 | Ozubená kola | ✅ Hotovo |
+| 02 | Indukční snímač | ✅ Hotovo |
 
 
 ---
