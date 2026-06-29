@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Engineering Lab – Inductive Sensor</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<main class="app">
+
+  <header class="topbar">
+    <div class="brand">⚙️ Engineering Lab</div>
+
+    <div class="lang">
+      <button id="czBtn" class="active">CZ</button>
+      <button id="enBtn">EN</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1 data-i18n="title">Indukční snímač</h1>
+    <p data-i18n="subtitle">
+      Interaktivní simulace detekce kovových objektů pomocí elektromagnetického pole.
+    </p>
+  </section>
+
+  <section class="layout">
+
+    <aside class="panel">
+      <h2 data-i18n="settings">Nastavení</h2>
+
+      <label>
+        <span data-i18n="distance">Vzdálenost objektu</span>
+        <input type="range" id="distanceInput" min="0" max="25" step="0.1" value="12">
+        <strong id="distanceValue">12.0 mm</strong>
+      </label>
+
+      <label>
+        <span data-i18n="nominalRange">Jmenovitý dosah senzoru</span>
+        <input type="range" id="rangeInput" min="2" max="20" step="0.5" value="8">
+        <strong id="rangeValue">8.0 mm</strong>
+      </label>
+
+      <label>
+        <span data-i18n="material">Materiál objektu</span>
+        <select id="materialSelect">
+          <option value="steel">Steel</option>
+          <option value="stainless">Stainless steel</option>
+          <option value="aluminum">Aluminum</option>
+          <option value="brass">Brass</option>
+          <option value="copper">Copper</option>
+          <option value="plastic">Plastic</option>
+          <option value="wood">Wood</option>
+        </select>
+      </label>
+
+      <label>
+        <span data-i18n="sensorType">Typ senzoru</span>
+        <select id="sensorTypeSelect">
+          <option value="flush">Flush</option>
+          <option value="nonflush">Non-flush</option>
+        </select>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" id="fieldToggle" checked>
+        <span data-i18n="showField">Zobrazit elektromagnetické pole</span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" id="eddyToggle" checked>
+        <span data-i18n="showEddy">Zobrazit vířivé proudy</span>
+      </label>
+
+      <button id="autoBtn" data-i18n="autoMove">▶ Automatický pohyb</button>
+    </aside>
+
+    <section class="main">
+
+      <section class="simulation-card">
+        <div class="card-header">
+          <h2 data-i18n="simulation">Simulace senzoru</h2>
+          <div id="statusBadge" class="status off">OFF</div>
+        </div>
+
+        <canvas id="scene" width="1000" height="520"></canvas>
+      </section>
+
+      <section class="results">
+        <h2 data-i18n="results">Výsledky</h2>
+
+        <div class="result-grid">
+          <div class="result-box">
+            <span data-i18n="currentDistance">Aktuální vzdálenost</span>
+            <strong id="currentDistanceValue">12.0 mm</strong>
+          </div>
+
+          <div class="result-box">
+            <span data-i18n="effectiveRange">Efektivní dosah</span>
+            <strong id="effectiveRangeValue">8.0 mm</strong>
+          </div>
+
+          <div class="result-box">
+            <span data-i18n="materialFactor">Materiálový faktor</span>
+            <strong id="materialFactorValue">1.00</strong>
+          </div>
+
+          <div class="result-box">
+            <span data-i18n="output">Výstup</span>
+            <strong id="outputValue">OFF</strong>
+          </div>
+        </div>
+      </section>
+
+    </section>
+
+  </section>
+
+  <section class="explanation">
+    <div>
+      <h2 data-i18n="howTitle">Jak to funguje?</h2>
+      <p data-i18n="howText">
+        Indukční snímač vytváří elektromagnetické pole. Když se do pole přiblíží kovový objekt,
+        vzniknou v něm vířivé proudy. Ty změní energii pole a elektronika senzoru přepne výstup.
+      </p>
+    </div>
+
+    <div class="learning">
+      <h2 data-i18n="learningTitle">Co se právě děje?</h2>
+      <p id="learningText">
+        Objekt je mimo dosah senzoru, výstup zůstává vypnutý.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
