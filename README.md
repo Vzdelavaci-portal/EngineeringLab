@@ -30,7 +30,8 @@ No external libraries are required unless stated otherwise.
 | # | Simulation | Status |
 |---|------------|--------|
 | 01 | Gear Simulation | ✅ Done |
-| 02 | Inductive Semsor | ✅ Done |
+| 02 | Inductive Sensor | ✅ Done |
+| 03 | Bearing Simulator | ✅ Done |
 
 
 ---
@@ -90,6 +91,7 @@ Bez externích knihoven, pokud není uvedeno jinak.
 |---|----------|------|
 | 01 | Ozubená kola | ✅ Hotovo |
 | 02 | Indukční snímač | ✅ Hotovo |
+| 03 | Ložisko | ✅ Hotovo |
 
 
 ---
