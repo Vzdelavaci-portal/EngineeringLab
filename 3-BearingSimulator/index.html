@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Engineering Lab – Bearing Simulator</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<main class="app">
+
+  <header class="topbar">
+    <div class="brand">⚙️ Engineering Lab</div>
+
+    <div class="lang">
+      <button id="czBtn" class="active">CZ</button>
+      <button id="enBtn">EN</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1 data-i18n="title">Ložiska</h1>
+    <p data-i18n="subtitle">
+      Interaktivní simulace kuličkového ložiska, zatížení, tření, mazání a teploty.
+    </p>
+  </section>
+
+  <section class="layout">
+
+    <aside class="panel">
+      <h2 data-i18n="settings">Nastavení</h2>
+
+      <label>
+        <span data-i18n="rpm">Otáčky</span>
+        <input type="range" id="rpmInput" min="0" max="3000" step="50" value="900">
+        <strong id="rpmValue">900 RPM</strong>
+      </label>
+
+      <label>
+        <span data-i18n="load">Radiální zatížení</span>
+        <input type="range" id="loadInput" min="0" max="100" step="1" value="45">
+        <strong id="loadValue">45 %</strong>
+      </label>
+
+      <label>
+        <span data-i18n="lubrication">Mazání</span>
+        <select id="lubricationSelect">
+          <option value="excellent">Excellent</option>
+          <option value="good">Good</option>
+          <option value="poor">Poor</option>
+          <option value="none">None</option>
+        </select>
+      </label>
+
+      <label>
+        <span data-i18n="balls">Počet kuliček</span>
+        <input type="range" id="ballsInput" min="6" max="18" step="1" value="12">
+        <strong id="ballsValue">12</strong>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" id="forceToggle" checked>
+        <span data-i18n="forces">Zobrazit sílu</span>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" id="stressToggle" checked>
+        <span data-i18n="stress">Zobrazit rozložení zatížení</span>
+      </label>
+
+      <button id="slowBtn" data-i18n="slowMotion">🐢 Slow motion</button>
+
+      <p class="hint" data-i18n="hint">
+        Kliknutím do simulace změníš směr zatížení.
+      </p>
+    </aside>
+
+    <section class="main">
+
+      <section class="simulation-card">
+        <div class="card-header">
+          <h2 data-i18n="simulation">Simulace ložiska</h2>
+          <div id="statusBadge" class="status good">GOOD</div>
+        </div>
+
+        <canvas id="scene" width="1000" height="560"></canvas>
+      </section>
+
+      <section class="results">
+        <h2 data-i18n="results">Výsledky</h2>
+
+        <div class="result-grid">
+          <div class="result-box">
+            <span data-i18n="resultRpm">Otáčky</span>
+            <strong id="resultRpm">900</strong>
+          </div>
+
+          <div class="result-box">
+            <span data-i18n="friction">Tření</span>
+            <strong id="frictionValue">Low</strong>
+          </div>
+
+          <div class="result-box">
+            <span data-i18n="temperature">Teplota</span>
+            <strong id="temperatureValue">32 °C</strong>
+          </div>
+
+          <div class="result-box">
+            <span data-i18n="lifetime">Životnost</span>
+            <strong id="lifetimeValue">42000 h</strong>
+          </div>
+        </div>
+      </section>
+
+    </section>
+
+  </section>
+
+  <section class="explanation">
+    <div>
+      <h2 data-i18n="howTitle">Jak to funguje?</h2>
+      <p data-i18n="howText">
+        U radiálně zatíženého kuličkového ložiska nenese zatížení pouze jedna kulička.
+        Nejvíce zatížená je kulička ve směru síly, ale část zatížení přebírají i sousední kuličky.
+      </p>
+    </div>
+
+    <div class="learning">
+      <h2 data-i18n="learningTitle">Co se právě děje?</h2>
+      <p id="learningText">
+        Ložisko pracuje v běžném režimu s nízkým třením.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
